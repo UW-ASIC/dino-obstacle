@@ -7,7 +7,6 @@ module down_count
   output [8:0] count
 );
   
-  localparam MAX = 9'd511;
   reg [8:0] counter = 9'b0;
   
   always @(posedge clock)
