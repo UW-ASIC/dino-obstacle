@@ -16,6 +16,13 @@ module tt_um_example (
     input  wire       rst_n     // reset_n - low to reset
 );
 
+  reg clock=1'b0;
+  wire[8:0] counter;
+  reg reset=1'b1;
+  down_count u1(.clock(clock), .count(counter), .reset(reset));
+
+  always #10 clock = ~clock;
+
   // All output pins must be assigned. If not used, assign to 0.
   assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
   assign uio_out = 0;
