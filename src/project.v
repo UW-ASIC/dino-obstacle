@@ -21,11 +21,12 @@ module tt_um_example (
         .clk(clk),
         .rst_n(rst_n),
         .load_en(ui_in[0]),
-        .data({uio_in[7:6],ui_in[5:0]}),
+        .data({uio_in[7:6],ui_in[6:0]}),
         .out({uio_out[0],uo_out[7:0]})
         );
   
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+  uio_out[7:1] = 7'b0000000;
+  wire _unused = &{ena, uio_in[5:0], 1'b0};
 
 endmodule
