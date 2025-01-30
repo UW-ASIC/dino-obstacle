@@ -10,7 +10,7 @@ module down_count
   
   always @(posedge clock)
     begin
-      if (counter == 1'b0 || reset)
+      if (counter == 9'b0 || reset)
         	counter <= MAX;
       else
       		counter <= counter - 1;
