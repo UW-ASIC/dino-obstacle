@@ -17,7 +17,7 @@ module down_counter_tff
 	generate
 		for (i = 1; i < bits; i = i + 1) begin
             assign t_wire[i] = t_wire[i-1] & q_wire[i-1];
-            tff_load tff_inst (clk, rst_n, t_wire[i], load_en, ~data[i], q_wire[i]);
+            tff_load tff_inst (clk, rst_n, t_wire[i], load_en, data[i], q_wire[i]);
 		end
 	endgenerate
 endmodule
