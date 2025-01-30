@@ -9,11 +9,11 @@ module obstacle_generator (
 
     always @(posedge clk or posedge rst) begin
         if (rst) begin
-            obstacles <= 10'b0000000000;
+            obstacles <= 8'b00000000;
             zero_counter <= 2'b00;
         end else if (en) begin
             // Shift obstacles left
-            obstacles <= {obstacles[8:0], 1'b0};
+            obstacles <= {obstacles[6:0], 1'b0};
 
             // Update zero counter
             if (obstacles[1:0] == 2'b00)
