@@ -19,7 +19,7 @@ module tt_um_example (
   reg clock=1'b0;
   wire[8:0] counter;
   reg reset=1'b1;
-  down_count u1(.clock(clock), .count(counter), .reset(reset));
+  down_count u1(.clock(clock), .count(uio_out), .reset(reset), .load_en(uio_in[1]), .load_value({uio_in[3], uio_in[4]}));
 
 
   // All output pins must be assigned. If not used, assign to 0.
