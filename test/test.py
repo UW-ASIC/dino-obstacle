@@ -27,5 +27,5 @@ async def test_project(dut):
     dut._log.info("Test project behavior")
     for i in range(10000):
         # Wait for one clock cycle to see the output values
-        dut.ui_in.value = random.randbytes(1)
+        dut.ui_in.value = random.randint(0,255)
         await ClockCycles(dut.clk, 1)
