@@ -35,6 +35,6 @@ module tt_um_obstacles_dino (
     assign uio_out = {4'b1111, obstacle_type_mux, obstacle_pos_mux[8]};
     assign uo_out = obstacle_pos_mux[7:0];
 
-    wire _unused = &{uio_in[6:0], 1'b0};
+    wire _unused = &{uio_in[6:0], ena, 1'b0};
 
 endmodule
