@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2024 Your Name
+ * Copyright (c) 2024 UWASIC
  * SPDX-License-Identifier: Apache-2.0
  */
 
 `default_nettype none
 
-module tt_um_example (
+module tt_um_obstacles_dino (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -15,13 +15,26 @@ module tt_um_example (
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
+    assign uio_oe = 8'b00001111;
+    wire [8:0] obstacle1_pos;
+    wire [8:0] obstacle2_pos;
+    wire [2:0] obstacle1_type;
+    wire [2:0] obstacle2_type;
+    obstacles #(.GEN_LINE(250)) obstacles_inst (
+        .clk(clk),
+        .rst_n(rst_n),
+        .rng(ui_in),
+        .obstacle1_pos(obstacle1_pos),
+        .obstacle2_pos(obstacle2_pos),
+        .obstacle1_type(obstacle1_type),
+        .obstacle2_type(obstacle2_type)
+    );
+    wire [8:0] obstacle_pos_mux = uio_in[7] ? obstacle1_pos : obstacle2_pos;
+    wire [2:0] obstacle_type_mux = uio_in[7] ? obstacle1_type : obstacle2_type;
 
-  // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+    assign uio_out = {4'b1111, obstacle_type_mux, obstacle_pos_mux[8]};
+    assign uo_out = obstacle_pos_mux[7:0];
 
-  // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+    wire _unused = &{uio_in[6:0], 1'b0};
 
 endmodule
